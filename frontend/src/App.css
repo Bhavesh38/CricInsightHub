@@ -1,0 +1,24 @@
+/* CustomScrollbar.css */
+
+.custom-scrollbar {
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #4a5568 #cbd5e0; /* For Firefox */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #cbd5e0; /* Track color */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4a5568; /* Thumb color */
+  border-radius: 10px; /* Rounded corners */
+  border: 2px solid #cbd5e0; /* Border color */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #2d3748; /* Hover color */
+}
