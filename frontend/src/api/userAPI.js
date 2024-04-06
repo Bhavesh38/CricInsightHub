@@ -9,5 +9,6 @@ const API = axios.create({
 });
 
 export const getUsersAPI = () => API.get("/");
+export const getAllUsersAPI = () => API.get("/api/user/getallusers");
 export const registerNewUserAPI = (formData) => API.post("/api/user/register", formData);
 export const loginUserAPI = (formData) => API.post("/api/user/login", formData);

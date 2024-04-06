@@ -21,7 +21,7 @@ const CricHubNavbar = () => {
                     Logo
                 </Link>
             </div>
-            <div className='flex items-center gap-3 font-semibold'>
+            <div className='flex items-center gap-3 font-semibold sm:pr-3'>
                 {
                     CricHubNavbarContent.map((item, index) => {
                         return (

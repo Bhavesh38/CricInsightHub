@@ -30,7 +30,7 @@ const NewPostModal = ({ setIsModalOpen }) => {
         }
     }
     return (
-        <div className='fixed top-0 bottom-0 left-0 right-0 flex justify-center w-screen h-screen bg-gray-800 bg-opacity-70'>
+        <div className='fixed top-0 bottom-0 left-0 right-0 flex justify-center w-screen h-screen bg-gray-800 bg-opacity-70 z-[9000]'>
             <div className='w-full h-full overflow-auto bg-gray-300 sm:w-1/2 md:w-1/3 max-lg:w-1/2 custom-scrollbar'>
                 <div className='flex justify-end w-full p-1'>
                     <IoMdClose onClick={() => setIsModalOpen(false)} className='text-[1.5rem] cursor-pointer text-gray-600 hover:text-gray-800' title='Cancel creating post.' />
@@ -56,7 +56,7 @@ const NewPostModal = ({ setIsModalOpen }) => {
                         <label className='' htmlFor='image_input'>
                             <FaRegImages className='text-[1.5rem] cursor-pointer text-gray-600 hover:text-gray-800' title='Add images to post.' />
                         </label>
-                        <button type='button' className='border-[1px] border-gray-400' title='Create new post.' onClick={handleNewPostCreation}>Post</button>
+                        <button type='button' className='border-[1px] border-[#ad5568] px-[6px] py-[1px] bg-gray-100 text-[#ad5568] rounded-sm font-semibold hover:bg-[#ad5568] hover:text-gray-100 hover:shadow-sm' title='Create new post.' onClick={handleNewPostCreation}>Post</button>
                     </div>
 
                 </div>

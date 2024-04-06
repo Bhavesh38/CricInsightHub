@@ -28,6 +28,9 @@ export const CricHubNavbarContent = [
         title: 'Cricers',
         path: '/cricers'
     }, {
+        title: 'Notifications',
+        path: '/notification'
+    }, {
         title: 'Chat',
         path: '/chat'
     }, {

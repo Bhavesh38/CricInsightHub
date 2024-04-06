@@ -48,6 +48,9 @@ const Login = () => {
             } else {
                 expiry = new Date().getTime() + 1000 * 60 * 60 * 24 * 7;
             }
+            if (response.expiresIn === '1h') {
+                expiry = new Date().getTime() + 1000 * 60 * 60;
+            }
             localStorage.setItem('Batman', JSON.stringify({ token: response.token, expiry }));
             navigate("/dashboard");
         } else {

@@ -12,6 +12,8 @@ import NavbarLayout from './NavbarLayout';
 import CricHub from './components/services/cricHub/CricHub';
 import CricHubLayout from './CricHubLayout';
 import Chat from './components/services/cricHub/chatting/Chat';
+import Profile from './components/Profile/Profile';
+import UserAllPosts from './components/Profile/UserAllPosts';
 
 
 
@@ -32,6 +34,9 @@ const App = () => {
         <Route path="/services" element={<NavbarLayout ><Service /></NavbarLayout>} />
         <Route path="/crichub" element={<CricHubLayout ><CricHub /></CricHubLayout>} />
         <Route path="/chat" element={<CricHubLayout ><Chat /></CricHubLayout>} />
+
+        <Route path="/profile" element={<CricHubLayout ><Profile /></CricHubLayout>} />
+        <Route path="/userallposts" element={<CricHubLayout ><UserAllPosts /></CricHubLayout>} />
       </Routes>
     </BrowserRouter>
   )

@@ -8,3 +8,4 @@ const API = axios.create({
 });
 
 export const getUserDetailsAPI = () => API.get("/api/profile/userdetails");
+export const updateUserDetailsAPI = (formData) => API.post("/api/profile/updateuserdetails", formData);

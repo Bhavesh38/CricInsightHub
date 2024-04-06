@@ -10,3 +10,5 @@ const API = axios.create({
 // export const getUsersAPI = () => API.get("/");
 // export const registerNewUserAPI = (formData) => API.post("/api/user/register", formData);
 export const createNewPostAPI = (formData) => API.post("/api/post/create", formData);
+export const getAllPostsAPI = () => API.get("/api/post/getallposts");
+export const updateProfilePicAPI = (formData) => API.post("/api/profile/updateprofilepic", formData);

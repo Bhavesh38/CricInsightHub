@@ -72,12 +72,23 @@ router.post('/login', async (req, res, next) => {
         if (!isMatch) {
             return res.status(400).json({ message: "Invalid credentials" });
         }
-        const token = jwt.sign({ email: email }, process.env.JWT_SECRET, { expiresIn: rememberMe ? "7d" : "1h" });
-        res.status(200).json({ message: "SUCCESS", token: token, expiresIn: rememberMe ? "7d" : "1h" });
+        const token = jwt.sign({ email: email }, process.env.JWT_SECRET, { expiresIn: rememberMe ? "1h" : "1h" });
+        res.status(200).json({ message: "SUCCESS", token: token, expiresIn: rememberMe ? "1h" : "1h" });
     } catch (error) {
         return next(error);
     }
 });
+
+// getalluser
+router.get("/getallusers", async (req, res) => {
+    try {
+        const users = await Users.find();
+        res.status(200).json(users);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+})
 
 
 export default router;
