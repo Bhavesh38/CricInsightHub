@@ -14,6 +14,8 @@ import CricHubLayout from './CricHubLayout';
 import Chat from './components/services/cricHub/chatting/Chat';
 import Profile from './components/Profile/Profile';
 import UserAllPosts from './components/Profile/UserAllPosts';
+import { useDispatch } from 'react-redux';
+import { getUserDetailsAction } from './actions/profileActions';
 
 
 
@@ -23,7 +25,10 @@ import UserAllPosts from './components/Profile/UserAllPosts';
 
 
 const App = () => {
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserDetailsAction());
+  })
 
   return (
     <BrowserRouter>

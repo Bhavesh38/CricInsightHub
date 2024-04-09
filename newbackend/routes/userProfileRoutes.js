@@ -13,6 +13,7 @@ router.get("/userdetails", authenticate, async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
         const responseData = {
+            _id: user._id,
             email: user.email,
             userName: user.userName,
             profilePicture: user.profilePicture,
