@@ -1,10 +1,9 @@
 import * as api from "./../api/postsAPI.js";
-import { setAllPosts,setPostComments } from "../reduxStore/postSlice";
+import { setAllPosts, setPostComments } from "../reduxStore/postSlice";
 
 export const getPostCommentsAction = (postId) => async (dispatch) => {
     try {
         const { data } = await api.getPostCommentsAPI(postId);
-        console.log(data);
         dispatch(setPostComments(data));
     }
     catch (error) {

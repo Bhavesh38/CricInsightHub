@@ -139,5 +139,38 @@ router.get("/getcomments/:id", authenticate, async (req, res) => {
     }
 });
 
+// like an post comment with postId and commentId
+router.get("/likepostcomment/:postId/:commentId", authenticate, async (req, res) => {
+    const postId = req.params.postId;
+    const commentId = req.params.commentId;
+    try {
+        const post = await Posts.findOne({
+            _id: postId,
+        });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        const comment = await postComments.findOne({
+            _id: commentId,
+        });
+        if (!comment) {
+            return res.status(404).json({ message: "Comment not found" });
+        }
+        // Check if the user has already liked the comment
+        const isLiked = comment.likes.includes(req.user._id);
+        if (isLiked) {
+            comment.likes = comment.likes.filter(id => id.toString() !== req.user._id.toString());
+        } else {
+            comment.likes.push(req.user._id);
+        }
+        await comment.save();
+        res.status(200).json({ message: "SUCCESS" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+
+});
+
 
 export default router;

@@ -1,13 +1,18 @@
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const commentSchema = new Schema({
     commentContent: { type: String, required: true },
     postId: { type: String, required: true },
-    likes: { type: Number, default: 0 },
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
     commentedBy: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
-    subComments: [String]
+    subComments: [{
+        content: { type: String, required: true },
+        commentedBy: { type: String, required: true },
+        createdBy: { type: String, required: true }
+    }]
 })
 
 const postComments = mongoose.model('postComments', commentSchema);

@@ -75,4 +75,23 @@ export const formatedTimeAgo = (timestamp) => {
     return timeAgo || "Just now";
 }
 
+export const filterCommentData = (commentData) => {
+    const returnData = {};
+    //username and profile picture
+
+    returnData.commentContent = commentData.commentContent;
+    returnData.commentedBy = filteredUsers[commentData.commentedBy].userName;
+    returnData.profilePicture = filteredUsers[commentData.commentedBy].profilePicture;
+    returnData.likes = commentData.likes;
+    returnData.subComments = commentData.subComments.map(subComment => {
+        return {
+            ...subComment,
+            commentedBy: filteredUsers[subComment.commentedBy].userName,
+            profilePicture: filteredUsers[subComment.commentedBy].profilePicture
+        }
+    });
+    returnData.createdAt = commentData.createdAt;
+    return returnData;
+}
+
 

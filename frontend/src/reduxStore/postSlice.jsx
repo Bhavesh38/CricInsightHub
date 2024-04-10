@@ -5,7 +5,8 @@ const postSlice = createSlice({
     initialState: {
         allPosts: [],
         fetchingPost: false,
-        postComments:[]
+        postComments: [],
+        filteredPostComment: null
     },
 
     reducers: {
@@ -15,11 +16,14 @@ const postSlice = createSlice({
         setFetchingPosts: (state, action) => {
             state.fetchingPost = action.payload;
         },
-        setPostComments:(state,action) => {
+        setPostComments: (state, action) => {
             state.postComments = action.payload;
+        },
+        setFilteredPostComment: (state, action) => {
+            state.filteredPostComment = action.payload;
         }
     }
 });
 
-export const { setAllPosts, setFetchingPosts,setPostComments } = postSlice.actions;
+export const { setAllPosts, setFetchingPosts, setPostComments, setFilteredPostComment } = postSlice.actions;
 export default postSlice.reducer;
