@@ -14,7 +14,8 @@ const CommentModal = ({ openCommentModal, setOpenCommentModal, postContent }) =>
     const [commentText, setCommentText] = useState('');
     const [activePostsComments, setActivePostComments] = useState([]);
 
-    // console.log(activePostsComments);
+
+    // console.log(postComments);
     useEffect(() => {
         if (postContent._id) {
             dispatch(getPostCommentsAction(postContent._id));
@@ -33,11 +34,14 @@ const CommentModal = ({ openCommentModal, setOpenCommentModal, postContent }) =>
         e.preventDefault();
         if (commentText.trim().length === 0) return;
         const res = await dispatch(commentOnPostAction(postContent?._id, commentText));
-        if (res === 'SUCCESS') {
+        if (res?.message === 'SUCCESS') {
             setCommentText('');
             dispatch(getPostCommentsAction(postContent._id));
         }
     }
+
+
+
 
     return (
         <div className="fixed bottom-0 left-0 right-0 top-0 z-[5000] bg-gray-800 bg-opacity-40 w-screen h-screen flex justify-center pt-[150px]">
@@ -60,6 +64,7 @@ const CommentModal = ({ openCommentModal, setOpenCommentModal, postContent }) =>
                         <IoMdSend className='text-[1.5rem] cursor-pointer hover:text-[#00175f] text-[#182f77]' title='Send.' />
                     </button>
                 </form>
+
             </div>
         </div>
     );

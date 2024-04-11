@@ -13,5 +13,8 @@ export const createNewPostAPI = (formData) => API.post("/api/post/create", formD
 export const getAllPostsAPI = () => API.get("/api/post/getallposts");
 export const updateProfilePicAPI = (formData) => API.post("/api/profile/updateprofilepic", formData);
 export const likePostAPI = (postId) => API.get(`/api/post/like/${postId}`);
-export const commentOnPostAPI = (postId, comment) => API.post(`/api/post/comment/${postId}`, {comment});
+export const commentOnPostAPI = (postId, comment) => API.post(`/api/post/comment/${postId}`, { comment });
 export const getPostCommentsAPI = (postId) => API.get(`/api/post/getcomments/${postId}`);
+// /likepostcomment/:postId/:commentId
+export const likePostCommentAPI = (postId, commentId) => API.get(`/api/post/likepostcomment/${postId}/${commentId}`);
+export const addSubCommnetAPI = (commentId) => API.post(`/api/post/addsubcomment/${commentId}`);

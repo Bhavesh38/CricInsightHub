@@ -1,6 +1,17 @@
 import * as api from "./../api/postsAPI.js";
 import { setAllPosts, setPostComments } from "../reduxStore/postSlice";
 
+
+// like post comment 
+export const likePostCommentAction = (postId, commentId) => async (dispatch) => {
+    try {
+        const { data } = await api.likePostCommentAPI(postId, commentId);
+        return data;
+    } catch (error) {
+        console.log(error);
+        return "FAILURE";
+    }
+}
 export const getPostCommentsAction = (postId) => async (dispatch) => {
     try {
         const { data } = await api.getPostCommentsAPI(postId);

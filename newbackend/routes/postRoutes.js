@@ -172,5 +172,27 @@ router.get("/likepostcomment/:postId/:commentId", authenticate, async (req, res)
 
 });
 
+router.post("/addsubcomment/:id", authenticate, async (req, res) => {
+    const commentId = req.params.id;
+    const { subComment } = req.body;
+    try {
+        const comment = await postComments.findOne({
+            _id: commentId,
+        });
+        if (!comment) {
+            return res.status(404).json({ message: "Comment not found" });
+        }
+        comment.subComments.push({
+            content: subComment,
+            commentedBy: req.user._id
+        });
+        await comment.save();
+        res.status(200).json({ message: "SUCCESS" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 
 export default router;

@@ -79,6 +79,8 @@ export const filterCommentData = (commentData) => {
     const returnData = {};
     //username and profile picture
 
+    returnData._id = commentData._id;
+    returnData.postId = commentData.postId;
     returnData.commentContent = commentData.commentContent;
     returnData.commentedBy = filteredUsers[commentData.commentedBy].userName;
     returnData.profilePicture = filteredUsers[commentData.commentedBy].profilePicture;
@@ -92,6 +94,10 @@ export const filterCommentData = (commentData) => {
     });
     returnData.createdAt = commentData.createdAt;
     return returnData;
+}
+
+export const checkIsLiked = (likesArray, userId) => {
+    return likesArray?.includes(userId);
 }
 
 
