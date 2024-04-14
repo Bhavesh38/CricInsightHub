@@ -8,6 +8,7 @@ const notificationSchema = new Schema({
     message: { type: String, required: true },
     link: { type: String, required: true },
     read: { type: Boolean, default: false },
+    type: { type: String, default:''},
     createdAt: { type: Date, default: Date.now },
 });
 

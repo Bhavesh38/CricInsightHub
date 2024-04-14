@@ -42,6 +42,7 @@ export const filterFeedPosts = async () => {
     const userData = await getAllUsers();
     filterUsersData(userData);
     filterPostData(postData);
+    // console.log(filteredPost)
     return filteredPost;
 }
 

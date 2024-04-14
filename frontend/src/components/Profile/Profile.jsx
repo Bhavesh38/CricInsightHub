@@ -2,8 +2,10 @@ import React, { useEffect } from 'react'
 import ProfileHeading from './ProfileHeading'
 import UserFriends from './UserFriends'
 import UserPosts from './UserPosts';
+import UserProfileSettings from './UserProfileSettings';
 import { useDispatch } from "react-redux";
 import { getUserDetailsAction } from '../../actions/profileActions';
+
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -16,6 +18,7 @@ const Profile = () => {
                 <ProfileHeading />
                 <UserFriends />
                 <UserPosts />
+                <UserProfileSettings/>
             </div>
         </div>
     )

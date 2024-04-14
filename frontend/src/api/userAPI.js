@@ -1,10 +1,9 @@
 import axios from "axios";
-// http://localhost:3000/api/user/register
-
+let token = JSON.parse(localStorage.getItem("Batman"))?.token;
 const API = axios.create({
     baseURL: 'http://localhost:3000',
     headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json", Authorization: `Bearer ${token}`
     },
 });
 

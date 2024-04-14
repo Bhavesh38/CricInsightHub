@@ -2,6 +2,7 @@ import express from "express";
 import authenticate from "../middleware/auth.js";
 import Posts from "../models/postModel.js";
 import postComments from "../models/postCommentsModel.js";
+import Notifications from "../models/NotificationModel.js";
 
 const router = express.Router();
 
@@ -52,8 +53,16 @@ router.get("/like/:id", authenticate, async (req, res) => {
             post.likes = post.likes.filter(id => id.toString() !== req.user._id.toString());
         } else {
             post.likes.push(req.user._id);
+            const newNotification = new Notifications({
+                sender: req.user._id,
+                receiver: post.createdBy,
+                message: "has liked your post",
+                link: `/post/${postId}`
+            });
+            await newNotification.save();
         }
         await post.save();
+      
         res.status(200).json({ message: "SUCCESS" });
     } catch (error) {
         console.log(error);
@@ -82,6 +91,13 @@ router.post("/comment/:id", authenticate, async (req, res) => {
         await newComment.save();
         post.comments.push(newComment._id);
         await post.save();
+        const newNotification = new Notifications({
+            sender: req.user._id,
+            receiver: post.createdBy,
+            message: "has commented on your post",
+            link: `/post/${postId}`
+        });
+        await newNotification.save();
         res.status(200).json({ message: "SUCCESS" });
     } catch (error) {
         console.log(error);
@@ -164,6 +180,14 @@ router.get("/likepostcomment/:postId/:commentId", authenticate, async (req, res)
             comment.likes.push(req.user._id);
         }
         await comment.save();
+        // crete notification for the user who commented on the post someone has liked his comment
+        const newNotification = new Notifications({
+            sender: req.user._id,
+            receiver: comment.commentedBy,
+            message: "has liked your comment",
+            link: `/post/${postId}`
+        });
+        await newNotification.save();
         res.status(200).json({ message: "SUCCESS" });
     } catch (error) {
         console.log(error);
@@ -187,6 +211,66 @@ router.post("/addsubcomment/:id", authenticate, async (req, res) => {
             commentedBy: req.user._id
         });
         await comment.save();
+        const newNotification = new Notifications({
+            sender: req.user._id,
+            receiver: comment.commentedBy,
+            message: "has replied to your comment",
+            link: `/post/${comment.postId}`
+        });
+        await newNotification.save();
+        res.status(200).json({ message: "SUCCESS" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// delete subcomments from an comment using commentid and subcommentindex
+router.delete("/deletesubcomment/:commentId/:subCommentIndex", authenticate, async (req, res) => {
+    const commentId = req.params.commentId;
+    const subCommentIndex = req.params.subCommentIndex;
+    try {
+        const comment = await postComments.findOne({
+            _id: commentId,
+        });
+        if (!comment) {
+            return res.status(404).json({ message: "Comment not found" });
+        }
+        if (comment.subComments[subCommentIndex].commentedBy.toString() !== req.user._id.toString()) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        comment.subComments.splice(subCommentIndex, 1);
+        await comment.save();
+        res.status(200).json({ message: "SUCCESS" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// delete user comment using commentId and also remove from comment id from post data object if it exists
+router.delete("/deleteusercomment/:postId/:commentId", authenticate, async (req, res) => {
+    const postId = req.params.postId;
+    const commentId = req.params.commentId;
+    try {
+        const post = await Posts.findOne({
+            _id: postId,
+        });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        const comment = await postComments.findOne({
+            _id: commentId,
+        });
+        if (!comment) {
+            return res.status(404).json({ message: "Comment not found" });
+        }
+        if (comment.commentedBy.toString() !== req.user._id.toString()) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        await postComments.deleteOne({ _id: commentId });
+        post.comments = post.comments.filter(id => id.toString() !== commentId.toString());
+        await post.save();
         res.status(200).json({ message: "SUCCESS" });
     } catch (error) {
         console.log(error);

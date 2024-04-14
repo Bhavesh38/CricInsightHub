@@ -7,6 +7,7 @@ import { formatedTimeAgo } from '../../../../../utilities/postUtility';
 import { useDispatch, useSelector } from 'react-redux';
 import { likePostAction } from '../../../../../actions/postsActions';
 import CommentModal from './CommentModal';
+import { editUserFriendsAction } from '../../../../../actions/profileActions';
 
 const CricPost = ({ postContent }) => {
     const dispatch = useDispatch();
@@ -47,6 +48,13 @@ const CricPost = ({ postContent }) => {
             }
         }
     }
+
+    const handleFollowBtnClick = async (currBtn, user1, user2) => {
+        const res = await dispatch(editUserFriendsAction({ user1, user2 }));
+        if (res === 'SUCCESS') {
+            currBtn.textContent = 'Following';
+        }
+    }
     return (
         <div className='w-full border-b-[1px] border-gray-400 p-1 sm:p-2 flex flex-col gap-2'>
             <div className='flex justify-between w-full '>
@@ -58,7 +66,13 @@ const CricPost = ({ postContent }) => {
                     </div>
                 </div>
                 <div className='relative'>
-                    <button className='bg-[#00175f] text-gray-200 px-2 py-1 rounded-[2px]'>Follow</button>
+                    {
+                        //show follow btn if the current userid is not in the friend list and also the post is not created by the user
+                        userDetails?._id !== postContent?.createdBy && !userDetails?.friends.includes(postContent?.createdBy) &&
+                        <button className='bg-[#00175f] text-gray-200 px-2 py-1 rounded-[2px]' onClick={() => handleFollowBtnClick(this,  postContent?.createdBy,userDetails?._id)}>Follow</button>
+
+                    }
+                    {/* <button className='bg-[#00175f] text-gray-200 px-2 py-1 rounded-[2px]'>Follow</button> */}
                     {/* adding editing options */}
                     <div className='absolute hidden right-2 top-2'>
                         <button className='text-gray-500'>...</button>
@@ -78,8 +92,6 @@ const CricPost = ({ postContent }) => {
                         <img key={index} src={img} alt='post.png' className='w-[90px] h-[100px]' />
                     ))
                 }
-
-
             </div>
             <div className='flex items-center justify-between w-full gap-2'>
                 {/* like with Count */}

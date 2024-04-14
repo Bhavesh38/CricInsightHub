@@ -2,7 +2,35 @@ import * as api from "./../api/postsAPI.js";
 import { setAllPosts, setPostComments } from "../reduxStore/postSlice";
 
 
-// like post comment 
+//delete comment using commentId and postid
+export const deleteCommentAction = (postId, commentId) => async (dispatch) => {
+    try {
+        const { data } = await api.deleteCommentAPI(postId, commentId);
+        return data;
+    } catch (error) {
+        console.log(error);
+        return "FAILURE";
+    }
+}
+export const deleteSubCommentAction = (commentId, index) => async (dispatch) => {
+    try {
+        const { data } = await api.deleteSubCommnetAPI(commentId, index);
+        return data;
+    } catch (error) {
+        console.log(error);
+        return "FAILURE";
+    }
+}
+export const addSubCommnetAction = (commentId, postData) => async (dispatch) => {
+    try {
+        console.log(commentId, postData);
+        const { data } = await api.addSubCommnetAPI(commentId, postData);
+        return data;
+    } catch (error) {
+        console.log(error);
+        return "FAILURE";
+    }
+}
 export const likePostCommentAction = (postId, commentId) => async (dispatch) => {
     try {
         const { data } = await api.likePostCommentAPI(postId, commentId);

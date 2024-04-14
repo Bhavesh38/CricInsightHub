@@ -16,6 +16,7 @@ import Profile from './components/Profile/Profile';
 import UserAllPosts from './components/Profile/UserAllPosts';
 import { useDispatch } from 'react-redux';
 import { getUserDetailsAction } from './actions/profileActions';
+import Notification from "./components/Notifications/Notification"
 
 
 
@@ -39,7 +40,7 @@ const App = () => {
         <Route path="/services" element={<NavbarLayout ><Service /></NavbarLayout>} />
         <Route path="/crichub" element={<CricHubLayout ><CricHub /></CricHubLayout>} />
         <Route path="/chat" element={<CricHubLayout ><Chat /></CricHubLayout>} />
-
+        <Route path="/notification" element={<CricHubLayout ><Notification /></CricHubLayout>} />
         <Route path="/profile" element={<CricHubLayout ><Profile /></CricHubLayout>} />
         <Route path="/userallposts" element={<CricHubLayout ><UserAllPosts /></CricHubLayout>} />
       </Routes>

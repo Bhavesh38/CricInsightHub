@@ -17,4 +17,6 @@ export const commentOnPostAPI = (postId, comment) => API.post(`/api/post/comment
 export const getPostCommentsAPI = (postId) => API.get(`/api/post/getcomments/${postId}`);
 // /likepostcomment/:postId/:commentId
 export const likePostCommentAPI = (postId, commentId) => API.get(`/api/post/likepostcomment/${postId}/${commentId}`);
-export const addSubCommnetAPI = (commentId) => API.post(`/api/post/addsubcomment/${commentId}`);
+export const addSubCommnetAPI = (commentId, postData) => API.post(`/api/post/addsubcomment/${commentId}`, postData);
+export const deleteSubCommnetAPI = (commentId, index) => API.delete(`api/post/deletesubcomment/${commentId}/${index}`);
+export const deleteCommentAPI = (postId, commentId) => API.delete(`api/post/deleteusercomment/${postId}/${commentId}`);
