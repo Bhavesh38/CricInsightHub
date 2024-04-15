@@ -6,7 +6,8 @@ export const profileSlice = createSlice({
         navbarActive: 'Home',
         userDetails: null,
         userFriendsList: [],
-        userNotification:[]
+        userNotification:[],
+        otherUserDetails:null,
     },
     reducers: {
         setNavbarActive: (state, action) => {
@@ -20,9 +21,12 @@ export const profileSlice = createSlice({
         },
         setUserNotifications:(state,action) => {
             state.userNotification=action.payload
+        },
+        setOtherUserDetails:(state, action) => {
+            state.otherUserDetails = action.payload;
         }
     },
 });
 
-export const { setNavbarActive, setUserDetails, setUserFriendsList,setUserNotifications } = profileSlice.actions;
+export const { setNavbarActive, setUserDetails, setUserFriendsList,setUserNotifications ,setOtherUserDetails} = profileSlice.actions;
 export default profileSlice.reducer;

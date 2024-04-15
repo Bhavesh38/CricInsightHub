@@ -35,7 +35,7 @@ export const CricHubNavbarContent = [
         path: '/chat'
     }, {
         title: 'Profile',
-        path: '/profile'
+        path: '/profile/you'
     }
 ]
 

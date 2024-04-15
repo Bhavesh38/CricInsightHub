@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { IoMdClose } from "react-icons/io";
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 const ShowAllFriends = ({ setShowAllFriendsModal }) => {
-    const { userDetails, userFriendsList } = useSelector((state) => state.profileSlice);
+    const {id}=useParams();
+    const { userDetails, userFriendsList,otherUserDetails } = useSelector((state) => state.profileSlice);
     const [currentFriends, setCurrentFriends] = useState([]);
-
+    const [userDetailsData,setUserDetailsData]=useState('');
+    useEffect(() => {
+        if(id && id!=='you'){
+            setUserDetailsData(otherUserDetails);
+        }else if(id==='you'){
+            setUserDetailsData(userDetails);
+        }
+    },[userDetails,otherUserDetails,id]);
     useEffect(() => {
         setCurrentFriends(userFriendsList);
     }, [userFriendsList]);
@@ -26,7 +35,7 @@ const ShowAllFriends = ({ setShowAllFriendsModal }) => {
                     <IoMdClose onClick={() => setShowAllFriendsModal(false)} className='text-[1.5rem] cursor-pointer text-gray-600 hover:text-gray-800' title='Cancel creating post.' />
                 </div>
                 <div className='flex flex-col gap-2 p-2 text-gray-800'>
-                    <h3 className='font-bold'>Your friends<span className='font-medium'>({userFriendsList.length})</span></h3>
+                    <h3 className='font-bold'>{userDetailsData?._id===userDetails?._id ? 'Your' : userDetailsData?.userName} friends<span className='font-medium'>({currentFriends?.length})</span></h3>
                     <div className='flex items-center gap-2'>
                         <input onChange={handleInputChange} type='text' className='w-full p-1 border-[1px] border-gray-400 rounded-[19px] px-[16px] outline-none focus:border-blue-500' placeholder='Search friends...' />
                     </div>
@@ -35,10 +44,13 @@ const ShowAllFriends = ({ setShowAllFriendsModal }) => {
                             currentFriends?.map((friend, index) => (
                                 <div key={index} className='flex items-center justify-between gap-2 border-b-[1px] border-gray-400 p-1'>
                                     <div className='flex items-center gap-2'>
-                                        <img className='rounded-full w-8 h-8' src={friend?.profilePicture} />
+                                        <img className='w-8 h-8 rounded-full' src={friend?.profilePicture} />
                                         <h2 className='font-bold'>{friend?.userName}</h2>
                                     </div>
+                                    {
+                                        userDetailsData?._id===userDetails?._id &&
                                     <button type='button' className='font-medium text-red-500 bg-red-200 text-[12px] hover:text-gray-200 hover:bg-red-500 rounded-[2px] px-[6px] py-[2px] border-[1px] border-red-500' title='Remove from friendlist.'>Remove</button>
+                                    }
                                 </div>
                             ))
 

@@ -1,8 +1,25 @@
 import * as api from "./../api/postsAPI.js";
 import { setAllPosts, setPostComments } from "../reduxStore/postSlice";
 
+export const getAllPostOfUserAction = (userId) => async (dispatch) => {
+    try {
+        const { data } = await api.getAllPostOfUserAPI(userId);
+        return data;
+    } catch (error) {
+        console.log(error);
+        return "";
+    }
 
-//delete comment using commentId and postid
+}
+export const getCurrentPostAction = (postId) => async (dispatch) => {
+    try {
+        const { data } = await api.getCurrentPostAPI(postId);
+        return data;
+    } catch (error) {
+        console.log(error);
+        return "";
+    }
+}
 export const deleteCommentAction = (postId, commentId) => async (dispatch) => {
     try {
         const { data } = await api.deleteCommentAPI(postId, commentId);

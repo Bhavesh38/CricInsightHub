@@ -8,7 +8,7 @@ export const getUsersAllNotificationsAction = () => async (dispatch) => {
     try {
         const { data } = await api.getUsersAllNotificationsAPI();
         const res=await filterNotificationData(data);
-        console.log(res);
+        // console.log(res);
         dispatch(setUserNotifications(res));
     } catch (error) {
         console.log(error);

@@ -32,6 +32,7 @@ const CricPost = ({ postContent }) => {
             count: postContent?.comments?.length
         });
     }, [postContent, userDetails]);
+    // console.log(postContent)
     const handleLikeBtnClick = async () => {
         const response = await dispatch(likePostAction(postContent?._id));
         if (response.message === 'SUCCESS') {

@@ -13,7 +13,8 @@ const CricHubNavbar = () => {
         const url = window.location.href;
         const { pathname } = new URL(url);
         dispatch(setNavbarActive(pathname.slice(1)))
-    }, [])
+    }, []);
+
     return (
         <div className='fixed w-[100vw] top-0 p-2 bg-[#00175f] text-gray-200 flex justify-between items-center border-b-[1px] border-b-gray-300 bg-opacity-60'>
             <div>

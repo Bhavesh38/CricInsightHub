@@ -1,13 +1,15 @@
 import React,{useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import { IoEllipsisVerticalSharp } from "react-icons/io5";
 
 const NotificationCard = ({currNotification}) => {
+    // console.log(currNotification);
     const dispatch=useDispatch();
     const navigate=useNavigate();
 
     const handleNotificationClick = () => {
-        navigate(currNotification?.link);
+        navigate(currNotification?.link); 
     }
    
    
@@ -17,7 +19,7 @@ const NotificationCard = ({currNotification}) => {
             <div className='flex-1 p-[1px] flex justify-between'>
                 <div className='flex flex-col'>
                     <p>{currNotification?.senderUserName} {currNotification?.notificationMessage}.</p>
-                    <span className='text-sm'>{currNotification?.createdAt}</span>
+                    <span className='text-sm'>{currNotification?.createdAt} {currNotification?.type}</span>
                 </div>
             </div>
         </div>

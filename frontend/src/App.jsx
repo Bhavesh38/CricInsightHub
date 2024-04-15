@@ -17,6 +17,7 @@ import UserAllPosts from './components/Profile/UserAllPosts';
 import { useDispatch } from 'react-redux';
 import { getUserDetailsAction } from './actions/profileActions';
 import Notification from "./components/Notifications/Notification"
+import CurrentPost from './components/services/cricHub/cricHubComponents/cricPosts/CurrentPost';
 
 
 
@@ -41,8 +42,9 @@ const App = () => {
         <Route path="/crichub" element={<CricHubLayout ><CricHub /></CricHubLayout>} />
         <Route path="/chat" element={<CricHubLayout ><Chat /></CricHubLayout>} />
         <Route path="/notification" element={<CricHubLayout ><Notification /></CricHubLayout>} />
-        <Route path="/profile" element={<CricHubLayout ><Profile /></CricHubLayout>} />
+        <Route path="/profile/:id" element={<CricHubLayout ><Profile /></CricHubLayout>} />
         <Route path="/userallposts" element={<CricHubLayout ><UserAllPosts /></CricHubLayout>} />
+        <Route path="/post/:id" element={<CricHubLayout ><CurrentPost /></CricHubLayout>} />
       </Routes>
     </BrowserRouter>
   )

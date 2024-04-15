@@ -7,6 +7,34 @@ import Notifications from "../models/NotificationModel.js";
 const router = express.Router();
 
 
+//get all posts by of an user
+router.get("/getuserposts/:id", authenticate, async (req, res) => {
+    const userId = req.params.id;
+    try {
+        const posts = await Posts.find({
+            createdBy: userId,
+        });
+        res.status(200).json(posts);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+router.get("/getpost/:id", authenticate, async (req, res) => {
+    const postId = req.params.id;
+    try {
+        const post = await Posts.findOne({
+            _id: postId,
+        });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        res.status(200).json(post);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 router.post("/create", authenticate, async (req, res) => {
     try {
         const { textContent, images } = req.body;
@@ -57,9 +85,12 @@ router.get("/like/:id", authenticate, async (req, res) => {
                 sender: req.user._id,
                 receiver: post.createdBy,
                 message: "has liked your post",
-                link: `/post/${postId}`
+                link: `/post/${postId}`,
+                type: 'like',
             });
-            await newNotification.save();
+            if(postId !== req.user._id.toString()){
+                await newNotification.save();
+            }
         }
         await post.save();
       
@@ -95,9 +126,12 @@ router.post("/comment/:id", authenticate, async (req, res) => {
             sender: req.user._id,
             receiver: post.createdBy,
             message: "has commented on your post",
-            link: `/post/${postId}`
+            link: `/post/${postId}`,
+            type: 'comment',
         });
-        await newNotification.save();
+        if(post.createdBy.toString() !== req.user._id.toString()){
+            await newNotification.save();
+        }
         res.status(200).json({ message: "SUCCESS" });
     } catch (error) {
         console.log(error);
@@ -185,9 +219,12 @@ router.get("/likepostcomment/:postId/:commentId", authenticate, async (req, res)
             sender: req.user._id,
             receiver: comment.commentedBy,
             message: "has liked your comment",
-            link: `/post/${postId}`
+            link: `/post/${postId}`,
+            type: 'like',
         });
-        await newNotification.save();
+        if(comment.commentedBy.toString() !== req.user._id.toString()){
+            await newNotification.save();
+        }
         res.status(200).json({ message: "SUCCESS" });
     } catch (error) {
         console.log(error);
@@ -215,9 +252,12 @@ router.post("/addsubcomment/:id", authenticate, async (req, res) => {
             sender: req.user._id,
             receiver: comment.commentedBy,
             message: "has replied to your comment",
-            link: `/post/${comment.postId}`
+            link: `/post/${comment.postId}`,
+            type: 'comment',
         });
-        await newNotification.save();
+        if(comment.commentedBy.toString() !== req.user._id.toString()){
+            await newNotification.save();
+        }
         res.status(200).json({ message: "SUCCESS" });
     } catch (error) {
         console.log(error);

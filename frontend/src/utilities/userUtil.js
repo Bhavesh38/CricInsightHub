@@ -11,7 +11,7 @@ const getAllUsers = async () => {
 }
 const filterUsersData = (userData) => {
     filteredUsers = {};
-    userData.forEach(user => {
+    userData?.forEach(user => {
         filteredUsers[user._id] = user;
     });
 }
@@ -19,7 +19,7 @@ export const filterUserFriends = async (userDetails) => {
     const allUsers = await getAllUsers();
     const friends = userDetails?.friends;
     const userFriends = [];
-    friends.forEach((friend) => {
+    friends?.forEach((friend) => {
         userFriends.push(allUsers.find((user) => user._id === friend));
     });
     return userFriends;
@@ -71,6 +71,7 @@ export const filterNotificationData = async (notificationArray) => {
         }
         resArray.push(tempData);
     }
+    // console.log(resArray);
     return resArray;
 }
 // Function to validate email

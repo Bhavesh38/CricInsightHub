@@ -7,6 +7,7 @@ import { setAllPosts } from '../../../../../reduxStore/postSlice';
 const CricPosts = () => {
     const dispatch = useDispatch();
     const { allPosts } = useSelector((state) => state.postSlice);
+    const { userDetails,otherUserDetails } = useSelector((state) => state.profileSlice)
 
     useEffect(() => {
         const filterPostData = async () => {

@@ -1,6 +1,16 @@
-import { setUserDetails } from "../reduxStore/profileSlice.js";
+import { setOtherUserDetails, setUserDetails } from "../reduxStore/profileSlice.js";
 import * as api from "./../api/profileAPI.js";
 
+export const getUserDetailsUsingIdAction = (userId) => async (dispatch) => {
+    try {
+        const { data } = await api.getUserDetailsUsingIdAPI(userId);
+        dispatch(setOtherUserDetails(data));
+    } catch (error) {
+        console.log(error);
+        return 'FAILURE';
+    }
+
+}
 export const editUserFriendsAction = (formData) => async (dispatch) => {
     try {
         const response = await api.editUserFriendsAPI(formData);
