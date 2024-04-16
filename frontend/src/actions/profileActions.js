@@ -5,6 +5,7 @@ export const getUserDetailsUsingIdAction = (userId) => async (dispatch) => {
     try {
         const { data } = await api.getUserDetailsUsingIdAPI(userId);
         dispatch(setOtherUserDetails(data));
+        return data;
     } catch (error) {
         console.log(error);
         return 'FAILURE';

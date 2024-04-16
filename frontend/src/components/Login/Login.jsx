@@ -52,7 +52,7 @@ const Login = () => {
                 expiry = new Date().getTime() + 1000 * 60 * 60;
             }
             localStorage.setItem('Batman', JSON.stringify({ token: response.token, expiry }));
-            navigate("/dashboard");
+            navigate("/");
         } else {
             setErrorMessage(response.message);
         }
