@@ -4,9 +4,14 @@ import cors from "cors";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import indexRouter from "./routes/indexRoutes.js"
+import { Server } from "socket.io";
+import http from 'http';
 
 const app = express();
 dotenv.config();
+const server = http.createServer(app);
+export const io = new Server(server);
+
 
 // Middlewares
 app.use(express.json());
@@ -30,7 +35,7 @@ connection.once("open", () => {
 });
 
 // Start server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
