@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 app.use("/api", indexRouter);
 
 // Connect to MongoDB
-const uri = process.env.MONGODB_URI;
+const uri ='mongodb+srv://bhaveshconnect38:IeKuFIjlvRBXoiww@MONGODB_URI=cluster0.odjspme.mongodb.net/?retryWrites=true&w=majority';
 mongoose.connect(uri)
 
 const connection = mongoose.connection;
@@ -35,7 +35,7 @@ connection.once("open", () => {
 });
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
