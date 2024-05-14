@@ -19,6 +19,7 @@ import { getUserDetailsAction } from './actions/profileActions';
 import Notification from "./components/Notifications/Notification"
 import CurrentPost from './components/services/cricHub/cricHubComponents/cricPosts/CurrentPost';
 import UserChatDetails from './components/services/cricHub/chatting/UserChatDetails';
+import Auction from './components/services/auction/Auction';
 
 
 
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/login" element={<NoNavbarLayout><Login /></NoNavbarLayout>} />
         <Route path="/register" element={<NoNavbarLayout ><Register /></NoNavbarLayout>} />
         <Route path="/services" element={<NavbarLayout ><Service /></NavbarLayout>} />
+        <Route path="/auction" element={<NavbarLayout ><Auction /></NavbarLayout>} />
         <Route path="/crichub" element={<CricHubLayout ><CricHub /></CricHubLayout>} />
         <Route path="/chat" element={<CricHubLayout ><Chat /></CricHubLayout>} />
         <Route path="/chat/user/:id" element={<CricHubLayout><UserChatDetails /></CricHubLayout>} />

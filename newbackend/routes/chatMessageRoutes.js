@@ -1,7 +1,7 @@
 import express from "express";
 import authenticate from "../middleware/auth.js";
 import ChatMessages from "../models/chatMessageModal.js";
-import { io } from "../index.js";
+// import { io } from "../index.js";
 
 const router=express.Router();
 
@@ -9,12 +9,18 @@ const router=express.Router();
 // ChatMessages
 router.get("/message/:userId", authenticate,async (req, res) => {
     try {
-        const chatMessages = await ChatMessages.find({ $or: [{ sender: req.params.userId }, { receiver: req.params.userId }] });
-        // io
-        res.status(200).json(chatMessages);
+        //find all messages which is associated to current user and the usergiven in params
+        const messages = await ChatMessages.find({
+            $or: [
+                { sender: req.user._id, receiver: req.params.userId },
+                { sender: req.params.userId, receiver: req.user._id },
+            ],
+        });
+        res.status(200).json(messages);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 export default router;

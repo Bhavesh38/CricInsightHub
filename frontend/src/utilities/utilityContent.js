@@ -14,10 +14,11 @@ export const NavbarContent = [
     }, {
         title: 'Services',
         path: '/services'
-    }, {
-        title: 'Profile',
-        path: '/profile'
-    }
+    },
+    //  {
+    //     title: 'Profile',
+    //     path: '/profile'
+    // }
 ]
 
 export const CricHubNavbarContent = [
@@ -46,5 +47,13 @@ export const ServicesContent = [
     }, {
         title: 'CricHub',
         path: '/crichub'
+    },
+    {
+        title: 'Fantasy Leauge',
+        path: 'http://insight.futuresfirst.com/fantasy'
+    },
+    {
+        title: 'Auction',
+        path: '/auction'
     }
 ]
